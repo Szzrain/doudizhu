@@ -48,7 +48,7 @@
   },
   {
     "deckId": "king_bomb",
-    "deckFormat": "00",
+    "deckFormat": "01",
     "targetDeck": [],
     "isBomb": true,
     "bombTarget": ["single","double","triple","triple_with_any","simple_bomb","continue"]
@@ -61,5 +61,19 @@
     ],
     "isBomb": false,
     "bombTarget": []
+  },
+  {
+    "deckId": "king_simple",
+    "deckFormat": "0",
+    "targetDeck": [],
+    "isBomb": true,
+    "bombTarget": ["single"]
+  },
+  {
+    "deckId": "king_big",
+    "deckFormat": "0",
+    "targetDeck": [],
+    "isBomb": true,
+    "bombTarget": ["single","king_simple"]
   }
 ]

@@ -38,11 +38,13 @@ public class GameRegisterManager {
             }
 
 
-            players.add(new Player(true));
-            players.add(new Player(true));
             players.add(new Player(false));
+            players.add(new Player(true));
+            players.add(new Player(true));
 
             isInit = false;
+        }else {
+            throw new GameProgressException("Game Already Initiated");
         }
     }
 
@@ -50,17 +52,16 @@ public class GameRegisterManager {
         shuffles = new ArrayList();
         for (Player p:players){
             p.resetPlayer();
-            for (String s:card_table.keySet()){
-                p.getHand().put(s,new Card(card_table.get(s).getMark(),card_table.get(s)));
+            for (String id:card_table.keySet()){
+                p.getHand().put(id,new Card(card_table.get(id).getMark(),card_table.get(id)));
             }
         }
         for(CardGroup c:card_table.values()){
             for (String s: c.getPossiblePrefix()) {
-                shuffles.add(new CardShuffle(s,c.getCardGroupId()));
+                shuffles.add(new CardShuffle(s,c.getCardGroupId(),c.getMark()));
             }
         }
         Collections.shuffle(shuffles);
-        System.out.println(shuffles);
     }
 
 
@@ -74,5 +75,9 @@ public class GameRegisterManager {
 
     public static List<Player> getPlayers() {
         return players;
+    }
+
+    public static List<CardShuffle> getShuffles() {
+        return shuffles;
     }
 }

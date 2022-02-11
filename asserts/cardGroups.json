@@ -159,12 +159,21 @@
     "level": 20,
     "mark": "King",
     "possiblePrefix": [
-      "small","big"
+      "small_"
     ],
     "possibleDeck": [
-      "King_bomb"
+      "king_bomb","king_simple"
     ],
-    "cardGroupId": "cardGroup_014_king",
+    "cardGroupId": "cardGroup_014_small_king",
+    "isAny": false
+  },
+  {
+    "level": 21,
+    "mark": "Cat",
+    "possiblePrefix": [
+      "big_"
+    ],
+    "cardGroupId": "cardGroup_015_big_cat",
     "isAny": false
   }
 ]

@@ -28,6 +28,11 @@ public class Card implements Comparable{
     }
 
     @Override
+    public String toString() {
+        return getPrefixCollects()+getMark();
+    }
+
+    @Override
     public int compareTo(Object o) {
         return this.getCardGroup().getLevel() - ((Card)o).getCardGroup().getLevel();
     }
