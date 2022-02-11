@@ -1,6 +1,8 @@
 package com.szzrain.doudizhu.object;
 
-public class CardShuffle {
+import com.szzrain.doudizhu.GameRegisterManager;
+
+public class CardShuffle implements Comparable{
     public String prefix;
     public String cardId;
     public String mark;
@@ -14,5 +16,10 @@ public class CardShuffle {
     @Override
     public String toString() {
         return prefix+mark;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return GameRegisterManager.getCard_table().get(this.cardId).getLevel() - GameRegisterManager.getCard_table().get(((CardShuffle)o).cardId).getLevel();
     }
 }

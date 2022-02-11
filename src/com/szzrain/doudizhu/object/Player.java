@@ -9,9 +9,12 @@ public class Player {
     private Map<String,Card> hand;
     private final String playerName;
     private final boolean isAI;
+    private final Map<String,CardShuffle> shuffleHand;
+
 
     public Player(boolean isAI) {
         this.hand = new LinkedHashMap<>();
+        this.shuffleHand = new LinkedHashMap<>();
         this.isAI = isAI;
         playerCount++;
         playerName = "player" + playerCount;
@@ -29,7 +32,16 @@ public class Player {
         return playerName;
     }
 
+    public Map<String, CardShuffle> getShuffleHand() {
+        return shuffleHand;
+    }
+
     public void resetPlayer(){
         this.hand = new LinkedHashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return getPlayerName();
     }
 }

@@ -16,7 +16,7 @@ public class GameRegisterManager {
     private static boolean isInit = true;
 
     public static void init(){
-        if (isInit || Main.DEBUG){
+        if (isInit || Main.getDebugState()){
             deck_table = new HashMap<>();
             card_table = new HashMap<>();
             players = new ArrayList<>();

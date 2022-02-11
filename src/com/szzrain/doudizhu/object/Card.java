@@ -2,7 +2,7 @@ package com.szzrain.doudizhu.object;
 
 import java.util.ArrayList;
 
-public class Card implements Comparable{
+public class Card {
     private final String mark;
     private final CardGroup cardGroup;
 
@@ -30,10 +30,5 @@ public class Card implements Comparable{
     @Override
     public String toString() {
         return getPrefixCollects()+getMark();
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return this.getCardGroup().getLevel() - ((Card)o).getCardGroup().getLevel();
     }
 }
