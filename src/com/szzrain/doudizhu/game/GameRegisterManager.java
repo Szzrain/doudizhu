@@ -1,7 +1,10 @@
-package com.szzrain.doudizhu;
+package com.szzrain.doudizhu.game;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.szzrain.doudizhu.IOTool;
+import com.szzrain.doudizhu.Main;
+import com.szzrain.doudizhu.game.GameProgressException;
 import com.szzrain.doudizhu.object.*;
 
 import java.util.*;

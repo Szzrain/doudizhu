@@ -1,6 +1,6 @@
 package com.szzrain.doudizhu.object;
 
-import com.szzrain.doudizhu.GameRegisterManager;
+import com.szzrain.doudizhu.game.GameRegisterManager;
 
 public class CardShuffle implements Comparable{
     public String prefix;

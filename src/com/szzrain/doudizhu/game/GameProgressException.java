@@ -1,4 +1,4 @@
-package com.szzrain.doudizhu;
+package com.szzrain.doudizhu.game;
 
 public class GameProgressException extends RuntimeException{
     public GameProgressException() {

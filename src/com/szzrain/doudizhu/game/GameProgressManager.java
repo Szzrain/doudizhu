@@ -1,10 +1,10 @@
-package com.szzrain.doudizhu;
+package com.szzrain.doudizhu.game;
 
+import com.szzrain.doudizhu.LOGGER;
+import com.szzrain.doudizhu.Main;
 import com.szzrain.doudizhu.extend.PlayerBehaviourStupidAI;
-import com.szzrain.doudizhu.object.Card;
-import com.szzrain.doudizhu.object.CardGroup;
-import com.szzrain.doudizhu.object.CardShuffle;
-import com.szzrain.doudizhu.object.Player;
+import com.szzrain.doudizhu.gui.GuiProcessManager;
+import com.szzrain.doudizhu.object.*;
 
 import java.util.*;
 
@@ -22,6 +22,20 @@ public class GameProgressManager {
     private static boolean hostSelected = false;
     private static Player[] hostWilling;
 
+    private static CardShuffle[] handedOutCards;
+    private static Player handOutPlayer;
+    private static boolean isPositiveTurn;
+
+//    private static void playerTurn(Player player){
+//        if (isPositiveTurn){
+//
+//        }
+//    }
+//
+//    private static CardShuffle[] selectCard(Player player){
+//
+//    }
+
     public static void gameStart(){
         GameRegisterManager.shuffleCards();
         dealCards();
@@ -30,33 +44,51 @@ public class GameProgressManager {
         }
         showHoleCards();
         selectHostTurn();
+        addHoleCardsToHost();
         showHoleCards();
-
+        for (Player p:players){
+            showCards(p);
+        }
+        handOutPlayer = host;
+        isPositiveTurn = true;
     }
 
     private static void gameFinishedClean(){
         host = null;
         hostSelected = false;
         hostWilling = null;
+        holeCards = null;
+        allCards = null;
+    }
+
+    private static void removeCardsFromPlayer(CardShuffle card,Player player){
+        player.getHand().get(card.cardId).getPrefixCollects().remove(card.prefix);
+    }
+
+
+    private static void addHoleCardsToHost(){
+        for (CardShuffle c:holeCards){
+            addPlayerCards(host,c);
+        }
     }
 
     private static void selectHostTurn(){
         hostWilling = new Player[players.size()];
-        System.out.println("Now is chose Host time");
+        LOGGER.info("Now is chose Host time");
         int currentTurnPlayerIndex = lastWinner;
-        System.out.println("Choosing will start with "+players.get(currentTurnPlayerIndex));
+        LOGGER.info("Choosing will start with "+players.get(currentTurnPlayerIndex));
         for (int i = 0; i < players.size(); i++) {
             int chose = chooseHost(players.get(currentTurnPlayerIndex));
             if (chose == hostWilling.length-1){
                 host = players.get(currentTurnPlayerIndex);
                 hostSelected = true;
-                System.out.println(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose+1)+" score !");
+                LOGGER.info(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose+1)+" score !");
                 announceHost();
                 return;
             }else if (chose<0){
-                System.out.println(players.get(currentTurnPlayerIndex)+" has give up to elect host !");
+                LOGGER.info(players.get(currentTurnPlayerIndex)+" has give up to elect host !");
             }
-            System.out.println(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose+1)+" score");
+            LOGGER.info(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose)+" score");
             if (currentTurnPlayerIndex == players.size()-1){
                 currentTurnPlayerIndex = 0;
             }else {
@@ -71,19 +103,20 @@ public class GameProgressManager {
                 return;
             }
         }
-        System.out.println("No one wants to Become Host!");
-        System.out.println("HOW dare are you guys!");
+        LOGGER.info("No one wants to Become Host!");
+        LOGGER.info("HOW dare are you guys!");
         System.exit(0);
     }
 
     private static void announceHost(){
-        System.out.println("Host is "+host+" !");
+        LOGGER.info("Host is "+host+" !");
     }
     private static int chooseHost(Player p){
         try {
             if (!p.isAI() || Main.getDebugState()){
-                System.out.println(p+" will choose...");
-                int choose = new Scanner(System.in).nextInt()-1;
+                LOGGER.info(p+" will choose...");
+//                int choose = new Scanner(System.in).nextInt()-1;
+                int choose = GuiProcessManager.getChooseHostResult();
                 if (choose<0){
                     return -1;
                 }else if(hostWilling[choose]!=null){
@@ -99,7 +132,7 @@ public class GameProgressManager {
             }
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("ERROR: wrong input or option already chosen, try it again");
+            LOGGER.info("ERROR: wrong input or option already chosen, try it again");
             chooseHost(p);
         }
         return -1;
@@ -156,7 +189,7 @@ public class GameProgressManager {
                         cardCount++;
                     }
                 }
-                System.out.println(p.getPlayerName()+":"+cardCount+" cards left");
+                LOGGER.info(p.getPlayerName()+":"+cardCount+" cards left");
                 //is player, show card details
             }else {
                 System.out.print("Your Card:");
@@ -167,11 +200,11 @@ public class GameProgressManager {
 
     private static void showHoleCards(){
         if (Main.getDebugState() || hostSelected){
-            System.out.print("Hole Cards:");
+            LOGGER.info("Hole Cards:");
             for(CardShuffle cardShuffle:holeCards){
-                System.out.print(" "+cardShuffle);
+                LOGGER.info_no_return(" "+cardShuffle);
             }
-            System.out.println();
+            LOGGER.info("");
         }
     }
 
@@ -185,7 +218,7 @@ public class GameProgressManager {
         }
         Collections.sort(presentTemp);
         for (CardShuffle c:presentTemp){
-            System.out.print(c+" ");
+            LOGGER.info_no_return(c+" ");
         }
         int cardCount = 0;
         for (Card card:p.getHand().values()){
@@ -193,6 +226,6 @@ public class GameProgressManager {
                 cardCount++;
             }
         }
-        System.out.println("   Total"+cardCount+" Cards");
+        LOGGER.info("   Total "+cardCount+" Cards");
     }
 }
