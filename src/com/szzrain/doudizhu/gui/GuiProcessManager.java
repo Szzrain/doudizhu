@@ -1,6 +1,7 @@
 package com.szzrain.doudizhu.gui;
 
 import com.szzrain.doudizhu.LOGGER;
+import com.szzrain.doudizhu.object.CardShuffle;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -33,6 +34,14 @@ public class GuiProcessManager {
         return buttonLock;
     }
 
+    public static void refreshPlayerHands(){
+
+    }
+
+    public static void setHoleCard(CardShuffle[] card){
+        mainController.setHoleCard(card);
+    }
+
     public static Condition getButtonCondition(){
         return buttonCondition;
     }
@@ -52,6 +61,6 @@ public class GuiProcessManager {
         }finally {
             buttonLock.unlock();
         }
-        return hostResult-1;
+        return hostResult;
     }
 }

@@ -4,13 +4,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.szzrain.doudizhu.gui.MainController">
    <children>
       <HBox fx:id="playerMain" layoutX="100.0" layoutY="300.0" prefHeight="100.0" prefWidth="400.0" />
-      <TextField fx:id="info" editable="false" layoutX="220.0" layoutY="97.0" />
-      <Button id="1" fx:id="host_one_score" layoutX="165.0" layoutY="239.0" mnemonicParsing="false" onAction="#hostButtonClick" text="1分" />
-      <Button id="2" fx:id="host_two_score" layoutX="273.0" layoutY="239.0" mnemonicParsing="false" onAction="#hostButtonClick" text="2分" />
-      <Button id="3" fx:id="host_three_score" layoutX="381.0" layoutY="239.0" mnemonicParsing="false" onAction="#hostButtonClick" text="3分" />
+      <TextField fx:id="info" editable="false" layoutX="220.0" layoutY="14.0" />
+      <Button id="1" fx:id="host_one_score" layoutX="184.0" layoutY="228.0" mnemonicParsing="false" onAction="#hostButtonClick" text="1分" />
+      <Button id="2" fx:id="host_two_score" layoutX="264.0" layoutY="228.0" mnemonicParsing="false" onAction="#hostButtonClick" text="2分" />
+      <Button id="3" fx:id="host_three_score" layoutX="345.0" layoutY="228.0" mnemonicParsing="false" onAction="#hostButtonClick" text="3分" />
+      <Button id="0" fx:id="passHost" layoutX="419.0" layoutY="228.0" mnemonicParsing="false" onAction="#hostButtonClick" text="不叫" />
+      <HBox fx:id="holeCardBox" layoutX="201.0" layoutY="37.0" prefHeight="100.0" prefWidth="200.0" />
+      <HBox fx:id="tableBox" layoutX="201.0" layoutY="137.0" prefHeight="100.0" prefWidth="200.0" />
+      <VBox fx:id="leftPlayer" layoutY="51.0" prefHeight="200.0" prefWidth="100.0" />
+      <VBox fx:id="rightPlayer" layoutX="500.0" layoutY="51.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

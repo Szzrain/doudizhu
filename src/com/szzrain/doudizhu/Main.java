@@ -21,7 +21,7 @@ public class Main extends Application {
         }
         GameRegisterManager.init();
         launch(args);
-
+        System.exit(0);
     }
 
     public static boolean getDebugState(){

@@ -73,7 +73,7 @@ public class GameProgressManager {
     }
 
     private static void selectHostTurn(){
-        hostWilling = new Player[players.size()];
+        hostWilling = new Player[3];
         LOGGER.info("Now is chose Host time");
         int currentTurnPlayerIndex = lastWinner;
         LOGGER.info("Choosing will start with "+players.get(currentTurnPlayerIndex));
@@ -88,7 +88,7 @@ public class GameProgressManager {
             }else if (chose<0){
                 LOGGER.info(players.get(currentTurnPlayerIndex)+" has give up to elect host !");
             }
-            LOGGER.info(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose)+" score");
+            LOGGER.info(players.get(currentTurnPlayerIndex)+" has chosen:"+(chose+1)+" score");
             if (currentTurnPlayerIndex == players.size()-1){
                 currentTurnPlayerIndex = 0;
             }else {
@@ -104,8 +104,8 @@ public class GameProgressManager {
             }
         }
         LOGGER.info("No one wants to Become Host!");
-        LOGGER.info("HOW dare are you guys!");
-        System.exit(0);
+        LOGGER.info("Restart choosing TURN");
+//        System.exit(0);
     }
 
     private static void announceHost(){
@@ -116,7 +116,7 @@ public class GameProgressManager {
             if (!p.isAI() || Main.getDebugState()){
                 LOGGER.info(p+" will choose...");
 //                int choose = new Scanner(System.in).nextInt()-1;
-                int choose = GuiProcessManager.getChooseHostResult();
+                int choose = GuiProcessManager.getChooseHostResult()-1;
                 if (choose<0){
                     return -1;
                 }else if(hostWilling[choose]!=null){
@@ -133,9 +133,8 @@ public class GameProgressManager {
         }catch (Exception e){
             e.printStackTrace();
             LOGGER.info("ERROR: wrong input or option already chosen, try it again");
-            chooseHost(p);
+            return chooseHost(p);
         }
-        return -1;
     }
 
     private static void dealCards(){
@@ -204,6 +203,7 @@ public class GameProgressManager {
             for(CardShuffle cardShuffle:holeCards){
                 LOGGER.info_no_return(" "+cardShuffle);
             }
+//            GuiProcessManager.setHoleCard(holeCards);
             LOGGER.info("");
         }
     }
